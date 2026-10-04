@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pokemon-unite-duel-room",
+  "main": "duel-worker.js",
+  "compatibility_date": "2026-10-04",
+  "durable_objects": {
+    "bindings": [
+      { "name": "DUEL_ROOMS", "class_name": "DuelRoom" }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["DuelRoom"]
+    }
+  ]
+}

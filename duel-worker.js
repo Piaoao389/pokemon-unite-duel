@@ -11,8 +11,11 @@ const freshState = () => ({
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname !== "/ws" || request.headers.get("Upgrade") !== "websocket") {
-      return new Response("Duel WebSocket endpoint. Use /ws?room=ROOMCODE", { status: 426 });
+    if (url.pathname !== "/ws") {
+      return env.ASSETS.fetch(request);
+    }
+    if (request.headers.get("Upgrade") !== "websocket") {
+      return new Response("WebSocket endpoint. Open the duel page first, then connect from the page.", { status: 426 });
     }
     const room = (url.searchParams.get("room") || "").toUpperCase().replace(/[^A-Z0-9_-]/g, "").slice(0, 20);
     if (!room) return new Response("room required", { status: 400 });

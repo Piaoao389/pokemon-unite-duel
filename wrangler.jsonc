@@ -1,8 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "pokemon-unite-duel-room",
+  "name": "pokemon-unite-duel",
   "main": "duel-worker.js",
   "compatibility_date": "2026-10-04",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS"
+  },
   "durable_objects": {
     "bindings": [
       { "name": "DUEL_ROOMS", "class_name": "DuelRoom" }

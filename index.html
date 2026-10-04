@@ -544,7 +544,7 @@ body.cfg-open #configMasterBtn{visibility:hidden;opacity:0;pointer-events:none}
   <div class="duel-panel">
     <div class="duel-head"><h2>⚔️ 双人隐藏选阵对战</h2><button class="duel-x" id="duelClose">×</button></div>
     <div class="duel-room">
-      <input id="duelWs" placeholder="联机服务器 wss://.../ws" aria-label="联机服务器">
+      <input id="duelWs" placeholder="联机服务器（同一网页可留空）" aria-label="联机服务器">
       <input id="duelRoom" placeholder="房间号，如 A8K3P" maxlength="12" aria-label="房间号">
       <input id="duelName" placeholder="昵称" maxlength="12" aria-label="昵称">
       <button class="duel-btn" id="duelCreate">创建房间</button><button class="duel-btn alt" id="duelJoin">加入房间</button>
@@ -2470,7 +2470,7 @@ ROLE_BOND_ICONS['护卫_3']="data:image/webp;base64,UklGRq4SAABXRUJQVlA4WAoAAAAQ
   function makeRoom(){var a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r='';for(var i=0;i<5;i++)r+=a[Math.floor(Math.random()*a.length)];return r;}
   function normalizeWs(u){u=(u||'').trim();if(!u)return '';if(/^https?:/.test(u))u=u.replace(/^http/,'ws');return u.replace(/\/$/,'');}
   function connect(r){
-    serverUrl=normalizeWs(document.getElementById('duelWs').value); room=(r||document.getElementById('duelRoom').value||'').trim().toUpperCase(); myName=(document.getElementById('duelName').value||'玩家').trim();
+    serverUrl=normalizeWs(document.getElementById('duelWs').value||((location.protocol==='https:'?'wss://':'ws://')+location.host+'/ws')); room=(r||document.getElementById('duelRoom').value||'').trim().toUpperCase(); myName=(document.getElementById('duelName').value||'玩家').trim();
     if(!serverUrl){renderBuild('请先填写联机服务器地址。');return;} if(!room){renderBuild('请填写房间号。');return;}
     try{ws=new WebSocket(serverUrl+'?room='+encodeURIComponent(room));}catch(e){renderBuild('服务器地址无法连接。');return;}
     ws.onopen=function(){ws.send(JSON.stringify({type:'join',room:room,name:myName}));setStatus('正在连接房间…');};
